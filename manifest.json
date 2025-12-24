@@ -2,8 +2,8 @@
   "name": "Sitemap Generator",
   "short_name": "SitemapGen",
   "description": "Frontend-only PWA for generating XML, PDF, ZIP sitemaps and robots.txt with workspace management.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/SitemapGeneratorXml/index.htm",
+  "scope": "/SitemapGeneratorXml/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0b1020",
@@ -67,7 +67,7 @@
       "name": "Workspace",
       "short_name": "Workspace",
       "description": "Open Sitemap Workspace",
-      "url": "./index.html#workspace",
+      "url": "/SitemapGeneratorXml/index.htm#workspace",
       "icons": [
         {
           "src": "/SitemapGeneratorXml/Assets/icon-192.png",
@@ -79,7 +79,7 @@
       "name": "robots.txt",
       "short_name": "robots",
       "description": "Generate robots.txt",
-      "url": "./index.html#robots",
+      "url": "/SitemapGeneratorXml/index.htm#robots",
       "icons": [
         {
           "src": "/SitemapGeneratorXml/Assets/icon-192.png",

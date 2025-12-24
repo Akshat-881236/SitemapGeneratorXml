@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sitemap Generator | PWA Workspace</title>
+  <title>Sitemap Generator - By Akshat Prasad</title>
   <meta name="google-site-verification" content="Kp1gscirNuecI5_9R4LDkE5ql4w4zt0NmneiPktuMu4" />
   <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,11 +18,442 @@
   <!-- Icons -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    /* =========================================================
+   GLOBAL DESIGN SYSTEM
+========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-  <!-- App CSS -->
-  <link rel="stylesheet" href="index.css">
+:root{
+  /* COLORS */
+  --bg-main:#0b1020;
+  --bg-panel:#11172a;
+  --bg-soft:#1a2140;
+  --bg-glass:rgba(255,255,255,0.04);
+
+  --primary:#4f7cff;
+  --primary-dark:#365df0;
+  --secondary:#22d3ee;
+  --accent:#fbbf24;
+
+  --text-main:#e5e7eb;
+  --text-soft:#94a3b8;
+  --text-muted:#64748b;
+
+  --success:#22c55e;
+  --warning:#f59e0b;
+  --danger:#ef4444;
+
+  /* SHADOWS */
+  --shadow-sm:0 2px 8px rgba(0,0,0,.25);
+  --shadow-md:0 10px 30px rgba(0,0,0,.35);
+  --shadow-lg:0 30px 60px rgba(0,0,0,.45);
+
+  /* RADII */
+  --radius-xs:4px;
+  --radius-sm:6px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --radius-xl:28px;
+
+  /* SIDEBAR */
+  --sidebar-width:260px;
+
+  /* TRANSITIONS */
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont;
+  background:var(--bg-main);
+  color:var(--text-main);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+.app-header{
+  height:58px;
+  background:linear-gradient(90deg,#1e3a8a,#2563eb);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 16px;
+  box-shadow:var(--shadow-md);
+  z-index:20;
+}
+
+.menu-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:26px;
+  cursor:pointer;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+.logo img{
+  width:28px;
+  height:28px;
+}
+
+/* =========================================================
+   APP LAYOUT
+========================================================= */
+.app-shell{
+  display:flex;
+  height:calc(100vh - 58px);
+  position:relative;
+  overflow:hidden;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+.sidebar{
+  width:var(--sidebar-width);
+  background:var(--bg-panel);
+  padding:14px 10px;
+  box-shadow:var(--shadow-lg);
+  transition:transform .35s var(--ease);
+  z-index:15;
+}
+
+.sidebar.hidden{
+  transform:translateX(-100%);
+}
+
+.nav button{
+  width:100%;
+  background:none;
+  border:none;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  color:var(--text-main);
+  border-radius:var(--radius-md);
+  font-size:14px;
+  cursor:pointer;
+  margin-bottom:6px;
+  transition:background .2s;
+}
+
+.nav button i{
+  color:var(--secondary);
+  font-size:18px;
+}
+
+.nav button:hover{
+  background:var(--bg-soft);
+}
+
+.nav button.danger{
+  color:var(--danger);
+}
+
+.nav hr{
+  border:none;
+  height:1px;
+  background:var(--bg-soft);
+  margin:10px 0;
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+.main-content{
+  flex:1;
+  padding:18px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+}
+
+.page{
+  display:none;
+  animation:fadeIn .35s var(--ease);
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+h2{
+  font-size:22px;
+  margin-bottom:14px;
+  color:var(--secondary);
+}
+
+h3{
+  font-size:16px;
+  margin:12px 0;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+.card{
+  background:var(--bg-panel);
+  padding:18px;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  margin-bottom:20px;
+  position:relative;
+}
+
+/* Glass effect optional */
+.card.glass{
+  background:var(--bg-glass);
+  backdrop-filter:blur(8px);
+}
+
+/* =========================================================
+   FORMS
+========================================================= */
+label{
+  font-size:13px;
+  color:var(--text-soft);
+  display:block;
+  margin-bottom:4px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:10px 12px;
+  background:#020617;
+  border:1px solid #334155;
+  color:var(--text-main);
+  border-radius:var(--radius-sm);
+  margin-bottom:10px;
+  font-size:14px;
+  transition:border .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px rgba(79,124,255,.25);
+}
+
+textarea{
+  resize:vertical;
+  min-height:80px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+button.primary{
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  border:none;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:var(--radius-md);
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .15s, box-shadow .15s;
+}
+
+button.primary:hover{
+  transform:translateY(-1px);
+  box-shadow:var(--shadow-sm);
+}
+
+button.secondary{
+  background:transparent;
+  border:1px solid var(--secondary);
+  color:var(--secondary);
+  padding:10px 16px;
+  border-radius:var(--radius-md);
+  cursor:pointer;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+.profile-pic{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:3px solid var(--secondary);
+  object-fit:cover;
+  margin-bottom:10px;
+}
+
+.profile-info{
+  font-size:14px;
+  color:var(--text-soft);
+  line-height:1.5;
+}
+
+/* =========================================================
+   ACTIVITY LOG
+========================================================= */
+.activity-list{
+  list-style:none;
+}
+
+.activity-list li{
+  padding:10px;
+  border-left:3px solid var(--primary);
+  background:var(--bg-soft);
+  margin-bottom:8px;
+  border-radius:var(--radius-sm);
+  font-size:13px;
+}
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+.workspace-header{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.folder-container{
+  margin-top:10px;
+}
+
+.folder{
+  border:1px dashed #475569;
+  padding:12px;
+  border-radius:var(--radius-md);
+  margin-bottom:14px;
+}
+
+.folder b{
+  font-size:14px;
+}
+
+.folder button{
+  margin-left:8px;
+}
+
+.file{
+  background:#020617;
+  padding:8px 10px;
+  border-radius:var(--radius-sm);
+  margin-top:6px;
+  font-size:13px;
+  color:var(--text-soft);
+}
+
+/* =========================================================
+   ROBOTS.TXT
+========================================================= */
+.robots-preview{
+  background:#020617;
+  color:#e5e7eb;
+  padding:12px;
+  border-radius:var(--radius-md);
+  font-family:monospace;
+  font-size:13px;
+  max-height:240px;
+  overflow:auto;
+  margin-top:10px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.app-footer{
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:var(--text-muted);
+  background:var(--bg-panel);
+}
+
+/* =========================================================
+   MOBILE OPTIMIZATION
+========================================================= */
+@media(max-width:900px){
+  .sidebar{
+    position:absolute;
+    height:100%;
+    left:0;
+    top:0;
+  }
+}
+
+@media(max-width:600px){
+  h2{font-size:18px}
+  .card{padding:14px}
+  .workspace-header{flex-direction:column}
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+button:focus-visible,
+input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+/* =========================================================
+   FUTURE DARK/LIGHT TOGGLE READY
+========================================================= */
+body.light{
+  --bg-main:#f8fafc;
+  --bg-panel:#ffffff;
+  --bg-soft:#f1f5f9;
+  --text-main:#020617;
+  --text-soft:#475569;
+}
+  </style>
 </head>
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sitemap Generator",
+  "applicationCategory": "DeveloperTool",
+  "operatingSystem": "Web",
+  "creator": {
+    "@type": "Person",
+    "name": "Akshat Prasad"
+  }
+}
+</script>
 <body>
 
 <!-- =====================================================
@@ -35,12 +466,8 @@
 
   <div class="logo">
     <!-- SVG LOGO -->
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 3h18v18H3z"/>
-      <path d="M7 7h10v2H7zM7 11h10v2H7zM7 15h6v2H7z"
-            fill="#fff"/>
-    </svg>
-    <span>Sitemap Generator</span>
+    <img src="/SitemapGeneratorXml/Assets/icon-192.png" alt="Sitemap Logo - Akshat Prasad ~ 881236">
+    <span><h1>Sitemap Generator</h1></span>
   </div>
 </header>
 
@@ -80,6 +507,9 @@
         <span>robots.txt</span>
       </button>
 
+      <button onclick="exportFullBackup()">Export Backup</button>
+      <input type="file" onchange="importFullBackup(this.files[0])">
+
       <hr>
 
       <button id="logoutBtn" class="danger">
@@ -97,6 +527,7 @@
 
     <!-- ================= PROFILE ================= -->
     <section id="profile" class="page active">
+  <p>This Sitemap Generator helps developers create XML sitemaps...</p>
       <h2>Profile</h2>
 
       <div class="card">
@@ -232,8 +663,578 @@
 </script>
 
 <!-- App JS -->
-<script src="index.js"></script>
-<script src="pwa.js"></script>
+<script>
+  /* =========================================================
+   GLOBAL STATE & AUTH GUARD
+========================================================= */
+(function authGuard(){
+  const session = localStorage.getItem("active_session");
+  if(!session){
+    window.location.href = "/SitemapGeneratorXml/AccountSetUp.htm";
+  }
+})();
 
+const USERS_KEY = "users_db";
+const SESSION_KEY = "active_session";
+
+const usersDB = JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
+const currentUserEmail = localStorage.getItem(SESSION_KEY);
+const user = usersDB[currentUserEmail];
+
+if(!user){
+  localStorage.removeItem(SESSION_KEY);
+  location.href = "/SitemapGeneratorXml/AccountSetUp.htm";
+}
+
+/* =========================================================
+   INITIALIZE USER STRUCTURE
+========================================================= */
+user.logs = user.logs || [];
+user.folders = user.folders || [];
+user.settings = user.settings || {
+  theme: "dark"
+};
+
+/* =========================================================
+   DOM REFERENCES
+========================================================= */
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menuToggle");
+const pages = document.querySelectorAll(".page");
+
+const profileInfo = document.getElementById("profileInfo");
+const profilePic = document.getElementById("profilePic");
+const profilePicInput = document.getElementById("profilePicInput");
+
+const activityList = document.getElementById("activityList");
+
+const folderNameInput = document.getElementById("folderNameInput");
+const exportTypeSelect = document.getElementById("exportType");
+const folderContainer = document.getElementById("folderContainer");
+
+const robotsAllow = document.getElementById("robotsAllow");
+const robotsDisallow = document.getElementById("robotsDisallow");
+const robotsSitemap = document.getElementById("robotsSitemap");
+const robotsPreview = document.getElementById("robotsPreview");
+
+/* =========================================================
+   UTILITY FUNCTIONS
+========================================================= */
+function saveDB(){
+  usersDB[currentUserEmail] = user;
+  localStorage.setItem(USERS_KEY, JSON.stringify(usersDB));
+}
+
+function logActivity(message){
+  const entry = `${new Date().toLocaleString()} — ${message}`;
+  user.logs.unshift(entry);
+  saveDB();
+  renderActivity();
+}
+
+function switchPage(id){
+  pages.forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  if(window.innerWidth < 900){
+    sidebar.classList.add("hidden");
+  }
+}
+
+/* =========================================================
+   SIDEBAR & NAVIGATION
+========================================================= */
+menuToggle.addEventListener("click", () => {
+  sidebar.classList.toggle("hidden");
+  appShell.classList.toggle("sidebar-collapsed");
+});
+
+document.querySelectorAll("[data-route]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    switchPage(btn.dataset.route);
+  });
+});
+
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+  localStorage.removeItem(SESSION_KEY);
+  location.href = "AccountSetUp.htm";
+});
+
+/* =========================================================
+   PROFILE
+========================================================= */
+function renderProfile(){
+  profileInfo.innerHTML = `
+    <strong>Name:</strong> ${user.name}<br>
+    <strong>Email:</strong> ${user.email}<br>
+    <strong>DOB:</strong> ${user.dob}
+  `;
+
+  if(user.photo){
+    profilePic.src = user.photo;
+  }
+}
+
+profilePicInput.addEventListener("change",()=>{
+  const file = profilePicInput.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    user.photo = reader.result;
+    profilePic.src = reader.result;
+    saveDB();
+    logActivity("Profile photo updated");
+  };
+  reader.readAsDataURL(file);
+});
+
+/* =========================================================
+   ACTIVITY LOG
+========================================================= */
+function renderActivity(){
+  activityList.innerHTML = "";
+  user.logs.forEach(log=>{
+    const li = document.createElement("li");
+    li.textContent = log;
+    activityList.appendChild(li);
+  });
+}
+
+/* =========================================================
+   ACCOUNT SETTINGS (PASSWORD UPDATE)
+========================================================= */
+async function hash(text){
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return [...new Uint8Array(buf)]
+    .map(b => b.toString(16).padStart(2,"0"))
+    .join("");
+}
+
+document.getElementById("updatePasswordBtn").addEventListener("click", async ()=>{
+  const newPass = document.getElementById("newPassword").value;
+  const confirm = document.getElementById("confirmPassword").value;
+
+  if(newPass.length < 8 || newPass !== confirm){
+    alert("Password invalid or mismatch");
+    return;
+  }
+
+  user.pass = await hash(newPass);
+  saveDB();
+  logActivity("Password updated");
+  alert("Password updated successfully");
+});
+
+/* =========================================================
+   WORKSPACE – FOLDERS & FILES
+========================================================= */
+document.getElementById("addFolderBtn").addEventListener("click",()=>{
+  const name = folderNameInput.value.trim();
+  if(!name) return;
+
+  user.folders.push({
+    name,
+    files: []
+  });
+
+  folderNameInput.value = "";
+  saveDB();
+  renderFolders();
+  logActivity(`Folder created: ${name}`);
+});
+
+function addFile(folderIndex){
+  user.folders[folderIndex].files.push({
+    url: "https://example.com/",
+    priority: "0.8",
+    changefreq: "monthly",
+    lastmod: new Date().toISOString().split("T")[0]
+  });
+  saveDB();
+  renderFolders();
+  logActivity("Sitemap entry added");
+}
+
+function editFile(folderIndex, fileIndex){
+  const file = user.folders[folderIndex].files[fileIndex];
+  const url = prompt("URL", file.url);
+  if(!url) return;
+
+  const priority = prompt("Priority (0.1 - 1.0)", file.priority);
+  file.url = url;
+  file.priority = priority || file.priority;
+  file.lastmod = new Date().toISOString().split("T")[0];
+
+  saveDB();
+  renderFolders();
+  logActivity("Sitemap entry updated");
+}
+
+function renderFolders(){
+  folderContainer.innerHTML = "";
+
+  user.folders.forEach((folder, i)=>{
+    const box = document.createElement("div");
+    box.className = "folder";
+
+    box.innerHTML = `
+      <b>${folder.name}</b>
+      <button onclick="addFile(${i})">+ File</button>
+      <button onclick="exportFolder(${i})">Export</button>
+    `;
+
+    folder.files.forEach((file, fi)=>{
+      const f = document.createElement("div");
+      f.className = "file";
+      f.innerHTML = `
+        ${file.url}<br>
+        Priority: ${file.priority} | LastMod: ${file.lastmod}
+        <button onclick="editFile(${i},${fi})">Edit</button>
+      `;
+      box.appendChild(f);
+    });
+
+    folderContainer.appendChild(box);
+  });
+}
+
+/* =========================================================
+   EXPORT – XML
+========================================================= */
+function generateXML(folder){
+  let xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+
+  folder.files.forEach(f=>{
+    xml += `
+  <url>
+    <loc>${f.url}</loc>
+    <priority>${f.priority}</priority>
+    <changefreq>${f.changefreq}</changefreq>
+    <lastmod>${f.lastmod}</lastmod>
+  </url>`;
+  });
+
+  xml += "\n</urlset>";
+  return xml;
+}
+
+/* =========================================================
+   EXPORT – PDF (jsPDF)
+========================================================= */
+function exportPDF(folder){
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+
+  pdf.setFontSize(16);
+  pdf.text("Sitemap Report", 14, 15);
+  pdf.setFontSize(11);
+  pdf.text(`Folder: ${folder.name}`, 14, 25);
+
+  let y = 35;
+  folder.files.forEach((f, i)=>{
+    if(y > 270){
+      pdf.addPage();
+      y = 20;
+    }
+    pdf.text(`${i+1}. ${f.url}`, 14, y);
+    pdf.text(`Priority: ${f.priority} | LastMod: ${f.lastmod}`, 14, y+6);
+    y += 14;
+  });
+
+  pdf.save(folder.name + ".pdf");
+  logActivity("PDF exported");
+}
+
+/* =========================================================
+   EXPORT – ZIP (JSZip)
+========================================================= */
+async function exportZIP(folder){
+  const zip = new JSZip();
+  zip.file("sitemap.xml", generateXML(folder));
+
+  if(robotsPreview.textContent){
+    zip.file("robots.txt", robotsPreview.textContent);
+  }
+
+  zip.file("README.txt",
+`Sitemap Folder: ${folder.name}
+Generated: ${new Date().toLocaleString()}
+Entries: ${folder.files.length}`);
+
+  const blob = await zip.generateAsync({ type:"blob" });
+  downloadBlob(blob, folder.name + ".zip");
+  logActivity("ZIP exported");
+}
+
+/* =========================================================
+   EXPORT ROUTER
+========================================================= */
+function exportFolder(index){
+  const folder = user.folders[index];
+  const type = exportTypeSelect.value;
+
+  if(type === "xml"){
+    downloadBlob(generateXML(folder), folder.name + ".xml", "application/xml");
+    logActivity("XML exported");
+  }
+  if(type === "pdf"){
+    exportPDF(folder);
+  }
+  if(type === "zip"){
+    exportZIP(folder);
+  }
+}
+
+/* =========================================================
+   ROBOTS.TXT
+========================================================= */
+document.getElementById("generateRobotsBtn").addEventListener("click",()=>{
+  const txt =
+`User-agent: *
+Allow: ${robotsAllow.value || "/"}
+Disallow: ${robotsDisallow.value || ""}
+
+Sitemap: ${robotsSitemap.value || ""}`;
+
+  robotsPreview.textContent = txt;
+  logActivity("robots.txt generated");
+});
+
+document.getElementById("downloadRobotsBtn").addEventListener("click",()=>{
+  if(!robotsPreview.textContent) return;
+  downloadBlob(robotsPreview.textContent, "robots.txt", "text/plain");
+  logActivity("robots.txt downloaded");
+});
+
+/* =========================================================
+   DOWNLOAD HELPER
+========================================================= */
+function downloadBlob(data, filename, type){
+  const blob = data instanceof Blob
+    ? data
+    : new Blob([data], { type: type || "text/plain" });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+renderProfile();
+renderActivity();
+renderFolders();
+logActivity("Session started");
+
+/* =========================================================
+   ADDITIONAL FEATURES BLOCK
+   Offline Lock + Storage Warning + Backup + Version History
+========================================================= */
+
+/* ===============================
+   APP VERSION (SYNC WITH SW)
+=============================== */
+const APP_VERSION = "v1.0.0";
+
+/* ===============================
+   VERSION HISTORY INIT
+=============================== */
+user.versionHistory = user.versionHistory || [];
+
+function logVersion(action){
+  user.versionHistory.unshift({
+    version: APP_VERSION,
+    action,
+    time: new Date().toLocaleString()
+  });
+  saveDB();
+}
+
+/* Log app load */
+logVersion("App Loaded");
+
+/* =========================================================
+   OFFLINE READ-ONLY LOCK
+========================================================= */
+function applyOfflineLock(isOffline){
+  const disableSelectors = [
+    "#addFolderBtn",
+    "#updatePasswordBtn",
+    "#generateRobotsBtn"
+  ];
+
+  disableSelectors.forEach(sel=>{
+    const el = document.querySelector(sel);
+    if(el){
+      el.disabled = isOffline;
+      el.style.opacity = isOffline ? "0.6" : "1";
+      el.style.pointerEvents = isOffline ? "none" : "auto";
+    }
+  });
+
+  if(isOffline){
+    logActivity("Offline mode: Read-only enabled");
+  } else {
+    logActivity("Online mode: Editing enabled");
+  }
+}
+
+function monitorOfflineLock(){
+  applyOfflineLock(!navigator.onLine);
+}
+
+window.addEventListener("offline", monitorOfflineLock);
+window.addEventListener("online", monitorOfflineLock);
+
+/* Initial state */
+monitorOfflineLock();
+
+/* =========================================================
+   STORAGE QUOTA WARNING SYSTEM
+========================================================= */
+async function checkStorageQuota(){
+  if(!navigator.storage || !navigator.storage.estimate) return;
+
+  const { usage, quota } = await navigator.storage.estimate();
+  const percent = Math.round((usage / quota) * 100);
+
+  if(percent >= 80){
+    showStorageWarning(percent);
+  }
+}
+
+function showStorageWarning(percent){
+  const warn = document.createElement("div");
+  warn.style.cssText = `
+    position:fixed;
+    bottom:16px;
+    right:16px;
+    background:#7c2d12;
+    color:#fff;
+    padding:12px 14px;
+    border-radius:12px;
+    max-width:280px;
+    font-size:13px;
+    z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+  `;
+
+  warn.innerHTML = `
+    <b>Storage Warning</b><br>
+    ${percent}% of storage used.<br>
+    Consider exporting backup.
+    <div style="text-align:right;margin-top:6px">
+      <button id="closeStorageWarn"
+        style="background:none;border:none;color:#fde68a;cursor:pointer">
+        Dismiss
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(warn);
+
+  document.getElementById("closeStorageWarn").onclick = () => {
+    warn.remove();
+  };
+}
+
+/* Run check once per session */
+checkStorageQuota();
+
+/* =========================================================
+   DATA EXPORT (FULL BACKUP)
+========================================================= */
+function exportFullBackup(){
+  const backup = {
+    appVersion: APP_VERSION,
+    exportedAt: new Date().toISOString(),
+    userData: user
+  };
+
+  downloadBlob(
+    JSON.stringify(backup, null, 2),
+    `sitemap-backup-${Date.now()}.json`,
+    "application/json"
+  );
+
+  logActivity("Full backup exported");
+  logVersion("Backup Exported");
+}
+
+/* =========================================================
+   DATA IMPORT (RESTORE)
+========================================================= */
+function importFullBackup(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+
+      if(!data.userData){
+        alert("Invalid backup file");
+        return;
+      }
+
+      // Restore user data safely
+      Object.assign(user, data.userData);
+      saveDB();
+
+      renderProfile();
+      renderActivity();
+      renderFolders();
+
+      logActivity("Backup imported");
+      logVersion("Backup Imported");
+
+      alert("Backup restored successfully");
+    } catch(e){
+      alert("Failed to restore backup");
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* =========================================================
+   VERSION HISTORY VIEW (ACTIVITY EXTENSION)
+========================================================= */
+function renderVersionHistory(){
+  const section = document.createElement("div");
+  section.className = "card";
+  section.innerHTML = `<h3>Version History</h3>`;
+
+  const ul = document.createElement("ul");
+  ul.className = "activity-list";
+
+  user.versionHistory.forEach(v=>{
+    const li = document.createElement("li");
+    li.textContent =
+      `${v.time} — ${v.action} (${v.version})`;
+    ul.appendChild(li);
+  });
+
+  section.appendChild(ul);
+
+  // Append to Activity page
+  const activityPage = document.getElementById("activity");
+  activityPage.appendChild(section);
+}
+
+/* Render version history once */
+renderVersionHistory();
+
+
+/* =========================================================
+   FINAL INIT LOG
+========================================================= */
+logVersion("Additional systems initialized");
+</script>
+<script src="pwa.js"></script>
 </body>
 </html>

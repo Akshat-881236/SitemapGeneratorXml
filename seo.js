@@ -8,37 +8,33 @@
 
   /* =====================================================
      GLOBAL DEFAULT SEO CONFIG
-     (Used when no page-specific override exists)
   ===================================================== */
   const DEFAULT_SEO = {
-    title: "Sitemap Generator – XML, PDF & ZIP",
+    title: "Sitemap Generator – By Akshat Prasad",
     description:
       "Frontend-only Sitemap Generator to create XML sitemaps, export as PDF or ZIP, and generate robots.txt. Works offline using browser storage.",
     keywords:
-      "sitemap generator, xml sitemap, robots.txt generator, seo tools, frontend sitemap, pwa sitemap",
+      "sitemap generator, xml sitemap, robots.txt generator, seo tools, frontend sitemap, pwa sitemap, Akshat Prasad Portfolio, Portfolio - 881236, Sitemap By Akshat Prasad",
     author: "Akshat Prasad",
     themeColor: "#2563eb",
     locale: "en_US",
     type: "website",
     siteName: "Sitemap Generator",
     twitterCard: "summary_large_image",
-    image: "" // optional: add a preview image later
+    image: "/SitemapGeneratorXml/Assets/icon-192.png"
   };
 
   /* =====================================================
      PAGE / ROUTE SPECIFIC SEO
-     (file name OR SPA hash routes)
   ===================================================== */
   const PAGE_SEO = {
 
-    /* ---------- MAIN ---------- */
     "index.html": {
-      title: "Sitemap Generator Workspace",
+      title: "Sitemap Generator - By Akshat Prasad",
       description:
         "Create and manage multiple sitemaps, export XML, PDF or ZIP, and generate robots.txt — all in the browser."
     },
 
-    /* ---------- SPA ROUTES ---------- */
     "#workspace": {
       title: "Sitemap Workspace – Create & Manage Sitemaps",
       description:
@@ -83,30 +79,46 @@
     return null;
   }
 
-  function setMeta(name, content, attr = "name") {
-    if (!content) return;
-    let tag = document.querySelector(`meta[${attr}="${name}"]`);
-    if (!tag) {
-      tag = document.createElement("meta");
-      tag.setAttribute(attr, name);
-      document.head.appendChild(tag);
-    }
-    tag.setAttribute("content", content);
-  }
+  /* =====================================================
+     INJECT META VIA INNERHTML
+  ===================================================== */
+  function injectMetaHTML(seo) {
 
-  function setLink(rel, href) {
-    if (!href) return;
-    let link = document.querySelector(`link[rel="${rel}"]`);
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = rel;
-      document.head.appendChild(link);
+    let container = document.querySelector("head meta[data-seo]");
+    if (!container) {
+      container = document.createElement("meta");
+      container.setAttribute("data-seo", "true");
+      document.head.appendChild(container);
     }
-    link.href = href;
+
+    document.title = seo.title;
+
+    container.outerHTML = `
+<meta data-seo="true" charset="utf-8">
+<meta name="description" content="${seo.description}">
+<meta name="keywords" content="${seo.keywords}">
+<meta name="author" content="${seo.author}">
+<meta name="theme-color" content="${seo.themeColor}">
+
+<link rel="canonical" href="${location.href.split("#")[0]}">
+
+<meta property="og:title" content="${seo.title}">
+<meta property="og:description" content="${seo.description}">
+<meta property="og:type" content="${seo.type}">
+<meta property="og:locale" content="${seo.locale}">
+<meta property="og:url" content="${location.href}">
+<meta property="og:site_name" content="${seo.siteName}">
+${seo.image ? `<meta property="og:image" content="${seo.image}">` : ""}
+
+<meta name="twitter:card" content="${seo.twitterCard}">
+<meta name="twitter:title" content="${seo.title}">
+<meta name="twitter:description" content="${seo.description}">
+${seo.image ? `<meta name="twitter:image" content="${seo.image}">` : ""}
+`;
   }
 
   /* =====================================================
-     APPLY SEO METADATA
+     APPLY SEO
   ===================================================== */
   function applySEO() {
     const key = getPageKey();
@@ -116,38 +128,7 @@
       key ? PAGE_SEO[key] : {}
     );
 
-    /* ---------- BASIC ---------- */
-    document.title = seo.title;
-    setMeta("description", seo.description);
-    setMeta("keywords", seo.keywords);
-    setMeta("author", seo.author);
-    setMeta("theme-color", seo.themeColor);
-
-    /* ---------- CANONICAL ---------- */
-    setLink("canonical", window.location.href.split("#")[0]);
-
-    /* ---------- OPEN GRAPH ---------- */
-    setMeta("og:title", seo.title, "property");
-    setMeta("og:description", seo.description, "property");
-    setMeta("og:type", seo.type, "property");
-    setMeta("og:locale", seo.locale, "property");
-    setMeta("og:url", window.location.href, "property");
-    setMeta("og:site_name", seo.siteName, "property");
-    if (seo.image) setMeta("og:image", seo.image, "property");
-
-    /* ---------- TWITTER ---------- */
-    setMeta("twitter:card", seo.twitterCard);
-    setMeta("twitter:title", seo.title);
-    setMeta("twitter:description", seo.description);
-    if (seo.image) setMeta("twitter:image", seo.image);
-
-    /* ---------- VIEWPORT SAFETY ---------- */
-    if (!document.querySelector('meta[name="viewport"]')) {
-      setMeta(
-        "viewport",
-        "width=device-width, initial-scale=1, maximum-scale=5"
-      );
-    }
+    injectMetaHTML(seo);
   }
 
   /* =====================================================

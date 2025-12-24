@@ -18,7 +18,6 @@ const CACHE_NAME = `sitemap-generator-${SW_VERSION}`;
 const APP_SHELL = [
   "./",
   "/SitemapGeneratorXml/index.htm",
-  "/SitemapGeneratorXml/index.css",
   "/SitemapGeneratorXml/index.js",
   "/SitemapGeneratorXml/manifest.json",
   "/SitemapGeneratorXml/seo.js",
