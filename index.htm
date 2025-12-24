@@ -9,7 +9,11 @@
 
   <!-- Theme -->
   <meta name="theme-color" content="#2563eb" />
-  <script src="/SitemapGeneratorXml/seo.js" defer></script>
+  <script src="/SitemapGeneratorXml/seoLoader.js" defer></script>
+  <noscript>
+  <meta name="description"
+        content="Frontend Sitemap Generator by Akshat Prasad">
+  </noscript>
 
 
   <!-- PWA -->
@@ -116,6 +120,16 @@ html,body{
 .logo img{
   width:28px;
   height:28px;
+}
+
+.app-shell.sidebar-collapsed .sidebar {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-shell.sidebar-collapsed .main-content {
+  flex: 1 1 100%;
 }
 
 /* =========================================================
@@ -765,7 +779,6 @@ document.getElementById("logoutBtn").addEventListener("click",()=>{
 ========================================================= */
 function renderProfile(){
   profileInfo.innerHTML = `
-    <strong>Name:</strong> ${user.name}<br>
     <strong>Email:</strong> ${user.email}<br>
     <strong>DOB:</strong> ${user.dob}
   `;

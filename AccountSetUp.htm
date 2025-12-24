@@ -433,6 +433,13 @@ async function verifyCoupon(code){
 async function register(){
   signupMsg.className="msg";
 
+  if(!name.value.trim()){
+  signupMsg.textContent="Full name is required";
+  signupMsg.classList.add("error");
+  return;
+}
+
+
   if(!/^\d{10}$/.test(contact.value)){
     signupMsg.textContent="Invalid contact number";
     signupMsg.classList.add("error");return;
@@ -464,14 +471,14 @@ async function register(){
     signupMsg.classList.add("error");return;
   }
 
-  const user={
-    tempId:"TMP-"+crypto.randomUUID(),
-    email:email.value,
-    name:name.value,
-    dob:dob.value,
-    pass:await hash(password.value),
-    faq:{father:father.value}
-  };
+  const user = {
+  tempId: "TMP-"+crypto.randomUUID(),
+  email: email.value,
+  name: name.value.trim() || "Not set",
+  dob: dob.value,
+  pass: await hash(password.value),
+  faq: { father: father.value }
+};
 
   users[email.value]=user;
   localStorage.setItem("users_db",JSON.stringify(users));
