@@ -502,7 +502,11 @@ body.light{
   }
 }
 </script>
-<body>
+<script src="https://akshat-881236.github.io/TrackerJS/tracker.js"></script>
+<script src="https://akshat-881236.github.io/TrackerJS/ui.js"></script>
+<script src="https://akshat-881236.github.io/TrackerJS/index.js"></script>
+<script src="https://akshat-881236.github.io/TrackerJS/trackermeta.js"></script>
+<body onload="pushData()">
 
 <!-- =====================================================
      HEADER
@@ -555,7 +559,22 @@ body.light{
         <i class="bi bi-shield-lock"></i>
         <span>robots.txt</span>
       </button>
-
+      <hr>
+      <h3 style="font-size:14px; margin-bottom:8px;">Data Management</h3>
+      <button id="tracker-toggle" style="
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    padding:10px 14px;
+    border-radius:50px;
+    border:none;
+    background:#0f172a;
+    color:#fff;
+    cursor:pointer;
+    z-index:9998;
+  ">
+  📊 My Activity
+</button>
       <button onclick="exportFullBackup()">Export Backup</button>
       <input type="file" onchange="importFullBackup(this.files[0])">
 
@@ -689,7 +708,13 @@ body.light{
         <pre id="robotsPreview" class="robots-preview"></pre>
       </div>
     </section>
-
+    <div id="tracker-dashboard"
+     style="display:none;position:fixed;bottom:80px;right:20px;
+            width:360px;max-height:60vh;overflow:auto;
+            background:#ffffff;border-radius:12px;
+            box-shadow:0 10px 30px rgba(0,0,0,.3);
+            z-index:9999;">
+</div>
   </main>
 </div>
 
@@ -1283,6 +1308,42 @@ renderVersionHistory();
    FINAL INIT LOG
 ========================================================= */
 logVersion("Additional systems initialized");
+</script>
+<script>
+(function(){
+
+  const btn = document.getElementById("tracker-toggle");
+  const box = document.getElementById("tracker-dashboard");
+  let loaded = false;
+
+  btn.addEventListener("click", () => {
+
+    // Toggle visibility
+    if (box.style.display === "block") {
+      box.style.display = "none";
+      return;
+    }
+
+    box.style.display = "block";
+
+    // Lazy load dashboard only once
+    if (!loaded) {
+      box.innerHTML = "<p style='padding:12px'>Loading activity…</p>";
+
+      fetch("https://akshat-881236.github.io/TrackerJS/index.html")
+        .then(r => r.text())
+        .then(html => {
+          box.innerHTML = html;
+          loaded = true;
+        })
+        .catch(() => {
+          box.innerHTML =
+            "<p style='padding:12px'>Activity unavailable on this device.</p>";
+        });
+    }
+  });
+
+})();
 </script>
 <script src="pwa.js"></script>
 </body>
