@@ -37,7 +37,8 @@ const APP_SHELL = [
   // External CDN files (cached after first load)
   "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css",
   "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",
-  "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"
+  "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js",
+  "active_session.json"
 ];
 
 /* =========================================================

@@ -47,6 +47,11 @@
                padding:8px 12px;border-radius:8px;cursor:pointer">
         Install
       </button>
+      <button id="visitProjectHubSiteBtn"
+        style="background:#10b981;color:#fff;border:none;
+               padding:8px 12px;border-radius:8px;cursor:pointer">
+        Project Hub
+      </button>
       <button id="pwaDismissBtn"
         style="background:none;color:#94a3b8;border:none;
                cursor:pointer">
@@ -66,6 +71,14 @@
       await deferredInstallPrompt.userChoice;
       deferredInstallPrompt = null;
     };
+
+    document.getElementById("visitProjectHubSiteBtn").onclick = () => {
+      window.open(
+        "https://akshat-881236.github.io/sitemapjs/",
+        "_blank",
+        "noopener"
+      );
+    }
 
     document.getElementById("pwaDismissBtn").onclick = () => {
       installBanner.remove();
