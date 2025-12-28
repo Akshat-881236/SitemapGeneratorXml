@@ -24,7 +24,6 @@ const APP_SHELL = [
   "/SitemapGeneratorXml/pwa.js",
   "/SitemapGeneratorXml/README.md",
   "/SitemapGeneratorXml/LICENSE",
-  "/SitemapGeneratorXml/AccountSetUp.htm",
   "/SitemapGeneratorXml/Assets/icon-192.png",
   "/SitemapGeneratorXml/Assets/icon-72.png",
   "/SitemapGeneratorXml/Assets/icon-96.png",
