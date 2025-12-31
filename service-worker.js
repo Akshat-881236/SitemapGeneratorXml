@@ -8,7 +8,7 @@
    VERSIONING
    (Change version to trigger update)
 =============================== */
-const SW_VERSION = "v1.0.0";
+const SW_VERSION = "v1.0.2";
 const CACHE_NAME = `sitemap-generator-${SW_VERSION}`;
 
 /* ===============================
